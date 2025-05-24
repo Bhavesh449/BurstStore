@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BurstStore</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <img src="logo.jpeg" alt="BurstStore Logo" class="logo" style="height:60px;">
+    <input type="text" class="search-box" placeholder="Search for products, brands and more">
+    <nav class="navbar">
+      <button id="favourites-link" class="favourites-btn">Favourites ❤️</button>
+    </nav>
+  </header>
+
+  <main>
+    <div id="product-list" class="product-grid">
+      <!-- No products here -->
+    </div>
+
+    <div id="product-detail" class="modal hidden">
+      <button id="close-btn">&times;</button>
+      <img id="detail-image" src="" alt="">
+      <h2 id="detail-name"></h2>
+      <p id="detail-price"></p>
+      <p id="detail-description"></p>
+    </div>
+
+    <div id="favourites-modal" class="modal hidden">
+      <h2>Your Favourites</h2>
+      <ul id="favourites-list"></ul>
+      <button id="close-fav-btn">Close</button>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

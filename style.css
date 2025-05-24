@@ -1,0 +1,139 @@
+/* Header styling */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Logo styling */
+.logo {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+/* Search box styling */
+.search-box {
+  flex: 1;
+  margin: 0 24px;
+  max-width: 400px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  text-align: center;
+  background: #f0f5ff;
+  color: #212121;
+  outline: none;
+  box-shadow: 0 1px 2px rgba(40,116,240,0.08);
+  transition: box-shadow 0.2s;
+}
+
+.search-box:focus {
+  box-shadow: 0 2px 8px rgba(40,116,240,0.15);
+}
+
+/* Product grid: 4 products per row by default, responsive */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin: 32px 0;
+}
+
+@media (max-width: 900px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Product thumbnail: 1:1 aspect ratio (square) */
+.product-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 10px auto;
+  border-radius: 8px;
+  background: #f8f8f8;
+}
+
+/* Optional: Product card styling for better appearance */
+.product-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(40,116,240,0.06);
+  text-align: center;
+  transition: box-shadow 0.2s;
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 16px rgba(40,116,240,0.12);
+}
+
+/* Navbar styling for favourites button */
+.navbar {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+/* Favourites button styling */
+.favourites-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.favourites-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Modal styles for favourites */
+#favourites-modal.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 32px 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+  z-index: 1001;
+  min-width: 300px;
+}
+
+#favourites-modal.hidden {
+  display: none;
+}
+
+#favourites-list {
+  margin: 16px 0;
+  padding: 0;
+  list-style: none;
+}
+
+#close-fav-btn {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
