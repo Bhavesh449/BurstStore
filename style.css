@@ -35,18 +35,12 @@
   box-shadow: 0 2px 8px rgba(40,116,240,0.15);
 }
 
-/* Product grid: 4 products per row by default, responsive */
+/* Product grid: 2 products per row */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
   margin: 32px 0;
-}
-
-@media (max-width: 900px) {
-  .product-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 @media (max-width: 600px) {
