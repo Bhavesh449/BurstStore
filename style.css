@@ -7,6 +7,9 @@
   padding: 16px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 1002;
 }
 
 /* Desktop: logo left, search center, fav right */
@@ -266,4 +269,161 @@ body.dark-mode .footer-dark {
 body.dark-mode .footer-section h4,
 body.dark-mode .footer-social-link {
   color: #f1f1f1;
+}
+
+/* Pokemon Cards dropdown styles */
+.pokemon-icon {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto 4px auto;
+  background: #fff;
+  border: 2px solid #eee;
+}
+
+#pokemon-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+#pokemon-dropdown .dropdown-menu {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background: #fff;
+  min-width: 180px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 8px;
+  z-index: 100;
+  padding: 8px 0;
+  list-style: none;
+}
+
+#pokemon-dropdown:hover .dropdown-menu,
+#pokemon-dropdown:focus-within .dropdown-menu {
+  display: block;
+}
+
+#pokemon-dropdown .dropdown-menu li {
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+#pokemon-dropdown .dropdown-menu li:hover {
+  background: #f0f5ff;
+}
+
+/* Hide the dropdown arrow for all devices */
+.section-list .dropdown-arrow,
+#pokemon-dropdown .dropdown-arrow {
+  display: none !important;
+}
+
+/* Show/hide Pokemon Cards nav for desktop/mobile */
+.pokemon-desktop-nav {
+  display: block;
+}
+.pokemon-mobile-nav {
+  display: none;
+  width: 100%;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+@media (max-width: 600px) {
+  .pokemon-desktop-nav {
+    display: none;
+  }
+  .pokemon-mobile-nav {
+    display: block;
+  }
+  .pokemon-mobile-nav .nav-item {
+    width: 100%;
+    text-align: left;
+    margin-left: 0;
+  }
+}
+
+/* Section bar and list styles */
+.section-bar {
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 0;
+  padding: 0 0 4px 0;
+  position: static;
+  z-index: 1001;
+}
+.section-list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 12px 24px 0 24px;
+  overflow-x: auto;
+  overflow-y: hidden; /* Prevent vertical scrolling */
+  max-height: 120px;  /* Optional: limit height to avoid vertical scroll */
+}
+.section-list .nav-item {
+  position: relative;
+  text-align: center;
+  min-width: 160px;      /* Increase width */
+  padding: 18px 0;       /* More vertical space */
+}
+.section-list .nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #222;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.35rem;    /* Larger text */
+  cursor: pointer;
+  padding: 12px 0;        /* More padding */
+}
+.section-list .pokemon-icon {
+  width: 80px;           /* Larger icon */
+  height: 80px;
+  margin-bottom: 12px;
+  background: #fff;
+  border: 2px solid #eee;
+}
+.section-list .dropdown-menu {
+  display: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 110%;
+  background: #fff;
+  min-width: 180px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 8px;
+  z-index: 100;
+  padding: 8px 0;
+  list-style: none;
+}
+.section-list .nav-item:hover .dropdown-menu,
+.section-list .nav-item:focus-within .dropdown-menu {
+  display: block;
+}
+.section-list .dropdown-menu li {
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.section-list .dropdown-menu li:hover {
+  background: #f0f5ff;
+}
+@media (max-width: 600px) {
+  .section-list {
+    gap: 16px;
+    padding: 8px 8px 0 8px;
+  }
 }

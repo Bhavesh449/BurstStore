@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pokemon Cards</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <a href="https://burststore.vercel.app/">
+      <img src="logo.png" alt="BurstStore Logo" class="logo" style="height:60px;">
+    </a>
+    <input type="text" class="search-box" placeholder="Search for products, brands and more">
+    <nav class="navbar">
+      <button id="favourites-link" class="favourites-btn">Favourites ❤️</button>
+      <button id="dark-mode-toggle" class="favourites-btn" style="margin-left:10px;">🌙 Dark Mode</button>
+    </nav>
+  </header>
+
+  <div style="text-align:center;margin-top:32px;">
+    <img src="pokemon.png" alt="Pokemon Cards" style="height:64px;">
+  </div>
+  <div class="product-grid" style="max-width:700px;margin:0 auto;">
+    <div class="product-card">
+      <a href="https://www.youtube.com/shorts/wilGNbTzUnc" target="_blank" style="display:block;">
+        <img class="product-thumb" src="paradox.png" alt="Pokemon Scarlet&Violet Paradox Rift">
+      </a>
+      <h3 style="margin: 12px 0 6px 0; font-size: 1.15rem;">Pokemon Scarlet&amp;Violet Paradox Rift</h3>
+      <p style="font-weight: bold; color: #222;">Rs 10/piece</p>
+      <button class="add-fav-btn" data-name="Pokemon Scarlet&Violet Paradox Rift" data-price="Rs 10" data-image="paradox.png" data-link="https://www.youtube.com/shorts/wilGNbTzUnc">
+        Add to Favourite ❤️
+      </button>
+    </div>
+  </div>
+  <script>
+    // Helper to get and set favourites in localStorage
+    function getFavourites() {
+      return JSON.parse(localStorage.getItem('favourites') || '[]');
+    }
+    function setFavourites(favs) {
+      localStorage.setItem('favourites', JSON.stringify(favs));
+    }
+
+    // On page load, update button if already in favourites
+    document.querySelectorAll('.add-fav-btn').forEach(btn => {
+      const name = btn.dataset.name;
+      const favs = getFavourites();
+      const already = favs.some(f => f.name === name);
+      if (already) {
+        btn.textContent = "Already Added";
+        btn.disabled = true;
+      }
+      btn.addEventListener('click', function() {
+        const favs = getFavourites();
+        if (!favs.some(f => f.name === name)) {
+          favs.push({
+            name: btn.dataset.name,
+            price: btn.dataset.price,
+            image: btn.dataset.image,
+            link: btn.dataset.link
+          });
+          setFavourites(favs);
+          btn.textContent = "Already Added";
+          btn.disabled = true;
+        }
+      });
+    });
+  </script>
+  <footer class="footer-dark">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Socials</h4>
+        <a href="https://www.youtube.com/@BoxBurstOfficial" target="_blank" class="footer-social-link">
+          <img src="yt.png" alt="YouTube" class="footer-social-icon">
+          <span>YouTube</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

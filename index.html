@@ -16,9 +16,35 @@
     </nav>
   </header>
 
+  <!-- Section navigation bar -->
+<nav class="section-bar">
+  <ul class="section-list">
+    <!-- Example: Add more sections as needed -->
+    <li class="nav-item dropdown" id="pokemon-dropdown-desktop">
+      <a href="pokemon-cards.html" class="nav-link">
+        <img src="pokemonsection.png" alt="Pokemon Cards" class="pokemon-icon">
+        <span>Pokemon Cards</span>
+      </a>
+      <ul class="dropdown-menu" id="pokemon-dropdown-menu-desktop">
+        <!-- JS will fill this with product names -->
+      </ul>
+    </li>
+    <!-- Add more <li> for other sections here -->
+  </ul>
+</nav>
+
   <main>
     <div id="product-list" class="product-grid">
-      <!-- No products here -->
+      <div class="product-card">
+  <a href="https://www.youtube.com/shorts/wilGNbTzUnc" target="_blank" style="display:block;">
+    <img class="product-thumb" src="paradox.png" alt="Pokemon Scarlet&Violet Paradox Rift">
+  </a>
+  <h3 style="margin: 12px 0 6px 0; font-size: 1.15rem;">Pokemon Scarlet&amp;Violet Paradox Rift</h3>
+  <p style="font-weight: bold; color: #222;">Rs 10</p>
+  <button class="add-fav-btn" data-name="Pokemon Scarlet&Violet Paradox Rift" data-price="Rs 10" data-image="paradox.png" data-link="https://www.youtube.com/shorts/wilGNbTzUnc">
+    Add to Favourite ❤️
+  </button>
+</div>
     </div>
 
     <div id="product-detail" class="modal hidden">

@@ -33,8 +33,32 @@ const products = [
     description: "Spinner: Fun and relaxing fidget spinner for all ages.",
     image: "spinner.png",
     link: "https://www.youtube.com/shorts/yTJEIKGgEaU"
+  },
+  {
+    name: "Scratchbook",
+    price: "Rs 30",
+    description: "Scratchbook: A fun and creative outlet for all ages.",
+    image: "scratch.png",
+    link: "https://www.youtube.com/shorts/-94Wf5xmfJg"
+  },
+  {
+    name: "Attractive Pens ",
+    price: "Rs 20",
+    description: "Attractive Pens: Colorful and stylish pens for writing and drawing.",
+    image: "pens.png",
+    link: "https://www.youtube.com/shorts/rK5LCrww92A"
+  },
+  {
+    name: "Pokemon Scarlet&Violet Paradox Rift",
+    price: "Rs 10",
+    description: "Pokemon Scarlet&Violet Paradox Rift",
+    image: "paradox.png",
+    link: "https://www.youtube.com/shorts/wilGNbTzUnc"
   }
 ];
+
+// Remove all products from pokemon cards section by clearing the array
+const pokemonProducts = [];
 
 const productList = document.getElementById('product-list');
 const modal = document.getElementById('product-detail');
@@ -192,3 +216,23 @@ darkModeBtn.addEventListener('click', () => {
 });
 
 showProducts();
+
+// Fill both desktop and mobile dropdowns
+function fillPokemonDropdown(menuId) {
+  const menu = document.getElementById(menuId);
+  if (menu) {
+    menu.innerHTML = "";
+    pokemonProducts.forEach(card => {
+      const li = document.createElement('li');
+      li.textContent = `${card.name} - ${card.price}`;
+      li.title = card.description;
+      li.addEventListener('click', (e) => {
+        e.stopPropagation();
+        alert(`${card.name}\n${card.price}\n${card.description}`);
+      });
+      menu.appendChild(li);
+    });
+  }
+}
+fillPokemonDropdown('pokemon-dropdown-menu-desktop');
+fillPokemonDropdown('pokemon-dropdown-menu-mobile');
