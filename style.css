@@ -35,13 +35,13 @@
   box-shadow: 0 2px 8px rgba(40,116,240,0.15);
 }
 
-/* Product grid: 4 products per row */
+/* Product grid: 4 products per row on desktop, 2 per row on mobile */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
   margin: 32px 0;
-  max-height: none; /* Remove row limit if you want all products visible */
+  max-height: none;
   overflow-y: visible;
 }
 
@@ -53,7 +53,7 @@
 
 @media (max-width: 600px) {
   .product-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
