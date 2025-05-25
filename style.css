@@ -35,24 +35,25 @@
   box-shadow: 0 2px 8px rgba(40,116,240,0.15);
 }
 
-/* Product grid: 1 product per row, 4 rows visible by default */
+/* Product grid: 4 products per row */
 .product-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
   margin: 32px 0;
+  max-height: none; /* Remove row limit if you want all products visible */
+  overflow-y: visible;
 }
 
-/* Optional: limit height to show 4 cards, add scroll if more */
-.product-grid {
-  max-height: calc(4 * 320px); /* Adjust 320px if your card is taller/shorter */
-  overflow-y: auto;
+@media (max-width: 900px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 600px) {
   .product-grid {
     grid-template-columns: 1fr;
-    max-height: none;
   }
 }
 
