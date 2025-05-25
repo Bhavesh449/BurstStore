@@ -62,6 +62,20 @@ const products = [
     description: "Magic Spring: Classic fun toy for kids and adults.",
     image: "spring.png",
     link: "https://www.youtube.com/shorts/-ewHAp8JQIM"
+  },
+  {
+    name: "ShuttleCock",
+    price: "Rs 40",
+    description: "ShuttleCock: Great for badminton fun and exercise.",
+    image: "shutle.png",
+    link: "https://www.youtube.com/shorts/GqoBl5OQ0r8"
+  },
+  {
+    name: "Pokemon Sun&Moon Cosmic Eclipse",
+    price: "Rs 10/piece",
+    description: "Pokemon Sun&Moon Cosmic Eclipse",
+    image: "cosmic.png",
+    link: "https://www.youtube.com/shorts/cyQ94o-AbHg"
   }
 ];
 
