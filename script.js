@@ -257,27 +257,6 @@ darkModeBtn.addEventListener('click', () => {
 });
 
 showProducts();
-
-// Fill both desktop and mobile dropdowns
-function fillPokemonDropdown(menuId) {
-  const menu = document.getElementById(menuId);
-  if (menu) {
-    menu.innerHTML = "";
-    pokemonProducts.forEach(card => {
-      const li = document.createElement('li');
-      li.textContent = `${card.name} - ${card.price}`;
-      li.title = card.description;
-      li.addEventListener('click', (e) => {
-        e.stopPropagation();
-        alert(`${card.name}\n${card.price}\n${card.description}`);
-      });
-      menu.appendChild(li);
-    });
-  }
-}
-fillPokemonDropdown('pokemon-dropdown-menu-desktop');
-fillPokemonDropdown('pokemon-dropdown-menu-mobile');
-
 // Open favourites modal if URL hash is #favourites
 if (window.location.hash === '#favourites') {
   setTimeout(() => {
