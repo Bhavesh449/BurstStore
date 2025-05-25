@@ -73,6 +73,29 @@
   }
 }
 
+/* Center logo on mobile */
+@media (max-width: 700px) {
+  .header {
+    text-align: center;
+  }
+  .header .logo {
+    display: inline-block;
+    margin-left: 0;
+    margin-right: 0;
+    float: none;
+  }
+}
+
+/* Keep logo left-aligned on desktop */
+@media (min-width: 701px) {
+  .header {
+    text-align: left;
+  }
+  .header .logo {
+    float: left;
+  }
+}
+
 /* Product grid: 4 products per row on desktop, 2 per row on mobile */
 .product-grid {
   display: grid;
