@@ -174,3 +174,36 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
+/* Dark mode styles */
+body.dark-mode {
+  background: #181a1b;
+  color: #f1f1f1;
+}
+body.dark-mode .header {
+  background: #23272b;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+body.dark-mode .product-card {
+  background: #23272b;
+  border-color: #333;
+  color: #f1f1f1;
+}
+body.dark-mode .search-box {
+  background: #23272b;
+  color: #f1f1f1;
+  border-color: #444;
+}
+body.dark-mode .favourites-btn,
+body.dark-mode #close-fav-btn {
+  background: #444;
+  color: #fff;
+}
+body.dark-mode .favourites-btn:hover,
+body.dark-mode #close-fav-btn:hover {
+  background: #222;
+}
+body.dark-mode #favourites-modal.modal {
+  background: #23272b;
+  color: #f1f1f1;
+}
