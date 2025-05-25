@@ -61,13 +61,16 @@ function saveFavourites() {
 }
 
 // Update all places where favourites are changed:
+// Show products with newest first (reverse order)
 function showProducts(filteredProducts = products) {
   productList.innerHTML = ""; // Clear previous products if any
-  if (filteredProducts.length === 0) {
+  // Sort so newest (last in array) is first
+  const sorted = [...filteredProducts].reverse();
+  if (sorted.length === 0) {
     productList.innerHTML = "<p>No products found.</p>";
     return;
   }
-  filteredProducts.forEach((product, index) => {
+  sorted.forEach((product, index) => {
     const card = document.createElement('div');
     card.className = 'product-card';
 
