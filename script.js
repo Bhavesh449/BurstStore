@@ -54,6 +54,14 @@ const products = [
     description: "Pokemon Scarlet&Violet Paradox Rift",
     image: "paradox.png",
     link: "https://www.youtube.com/shorts/wilGNbTzUnc"
+  },
+  {
+    name: "Magic Spring",
+    price: "Rs 40",
+    realPrice: "Rs 30",
+    description: "Magic Spring: Classic fun toy for kids and adults.",
+    image: "spring.png",
+    link: "https://www.youtube.com/shorts/-ewHAp8JQIM"
   }
 ];
 
@@ -101,11 +109,21 @@ function showProducts(filteredProducts = products) {
     // Check if product is already in favourites
     const isFavourite = favourites.some(fav => fav.name === product.name);
 
+    // Show strikethrough price and real price for Magic Spring
+    let priceHtml = "";
+    if (product.name === "Magic Spring" && product.realPrice) {
+      // Check if dark mode is enabled
+      const isDark = document.body.classList.contains('dark-mode');
+      priceHtml = `<span style="font-size:small;color:grey;text-decoration:line-through;">${product.price}</span> <span style="font-weight:bold;${isDark ? 'color:#fff;' : 'color:#222;'}">${product.realPrice}</span>`;
+    } else {
+      priceHtml = `<span>${product.price}</span>`;
+    }
+
     card.innerHTML = `
       <img src="${product.image}" alt="${product.name}" class="product-thumb">
       <div class="product-info">
         <h3>${product.name}</h3>
-        <p>${product.price}</p>
+        <p>${priceHtml}</p>
         <button class="fav-btn-card" ${isFavourite ? 'disabled' : ''}>
           ${isFavourite ? 'Already added' : 'Add to Favourite ❤️'}
         </button>
@@ -213,6 +231,15 @@ const darkModeBtn = document.getElementById('dark-mode-toggle');
 darkModeBtn.addEventListener('click', () => {
   document.body.classList.toggle('dark-mode');
   darkModeBtn.textContent = document.body.classList.contains('dark-mode') ? "☀️ Light Mode" : "🌙 Dark Mode";
+  // Re-render products to update Magic Spring price color
+  showProducts(
+    searchBox.value
+      ? products.filter(product =>
+          product.name.toLowerCase().includes(searchBox.value.trim().toLowerCase()) ||
+          product.description.toLowerCase().includes(searchBox.value.trim().toLowerCase())
+        )
+      : products
+  );
 });
 
 showProducts();
