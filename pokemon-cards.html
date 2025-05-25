@@ -7,12 +7,12 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="header">
+  <header class="header" style="display: flex; flex-direction: column; align-items: center;">
     <a href="https://burststore.vercel.app/">
-      <img src="logo.png" alt="BurstStore Logo" class="logo" style="height:60px;">
+      <img src="logo.png" alt="BurstStore Logo" class="logo" style="height:60px; display: block; margin: 0 auto;">
     </a>
-    <input type="text" class="search-box" placeholder="Search for products, brands and more">
-    <nav class="navbar">
+    <input type="text" class="search-box" placeholder="Search for products, brands and more" style="margin-top:10px;">
+    <nav class="navbar" style="margin-top:10px;">
       <button id="favourites-link" class="favourites-btn" onclick="window.location.href='index.html#favourites'">Favourites ❤️</button>
       <button id="dark-mode-toggle" class="favourites-btn" style="margin-left:10px;">🌙 Dark Mode</button>
     </nav>
