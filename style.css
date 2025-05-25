@@ -6,15 +6,16 @@
   background: #fff;
   padding: 16px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  flex-wrap: wrap;
 }
 
-/* Logo styling */
+/* Desktop: logo left, search center, fav right */
 .logo {
   font-size: 2.5rem;
   font-weight: bold;
+  order: 1;
 }
 
-/* Search box styling */
 .search-box {
   flex: 1;
   margin: 0 24px;
@@ -29,10 +30,44 @@
   outline: none;
   box-shadow: 0 1px 2px rgba(40,116,240,0.08);
   transition: box-shadow 0.2s;
+  order: 2;
 }
 
-.search-box:focus {
-  box-shadow: 0 2px 8px rgba(40,116,240,0.15);
+.navbar {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  order: 3;
+}
+
+/* Mobile styles */
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 8px;
+  }
+  .logo {
+    order: 1;
+    align-self: center;
+    margin-bottom: 10px;
+    margin-top: 0;
+    text-align: center;
+  }
+  .search-box {
+    order: 2;
+    margin: 0 0 10px 0;
+    max-width: 100%;
+    width: 100%;
+    align-self: flex-start;
+  }
+  .navbar {
+    order: 3;
+    justify-content: flex-end;
+    margin-left: 0;
+    margin-bottom: 0;
+    width: 100%;
+  }
 }
 
 /* Product grid: 4 products per row on desktop, 2 per row on mobile */
