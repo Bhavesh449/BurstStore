@@ -184,4 +184,11 @@ searchBox.addEventListener('input', function () {
   showProducts(filtered);
 });
 
+// Dark mode toggle
+const darkModeBtn = document.getElementById('dark-mode-toggle');
+darkModeBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+  darkModeBtn.textContent = document.body.classList.contains('dark-mode') ? "☀️ Light Mode" : "🌙 Dark Mode";
+});
+
 showProducts();
