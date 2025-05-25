@@ -340,17 +340,6 @@ body.dark-mode .footer-social-link {
 #pokemon-dropdown .dropdown-menu li:hover {
   background: #f0f5ff;
 }
-
-/* Hide the dropdown arrow for all devices */
-.section-list .dropdown-arrow,
-#pokemon-dropdown .dropdown-arrow {
-  display: none !important;
-}
-
-/* Show/hide Pokemon Cards nav for desktop/mobile */
-.pokemon-desktop-nav {
-  display: block;
-}
 .pokemon-mobile-nav {
   display: none;
   width: 100%;
