@@ -104,12 +104,12 @@
   display: block;
   margin: 0 auto 10px auto;
   border-radius: 8px;
-  background: #f8f8f8;
+  background: #fffafa;
 }
 
 /* Optional: Product card styling for better appearance */
 .product-card {
-  background: #fff;
+  background: #ffffff;
   border: 1px solid #eee;
   border-radius: 10px;
   padding: 16px;
@@ -351,7 +351,7 @@ body.dark-mode .footer-social-link {
 /* Section bar and list styles */
 .section-bar {
   width: 100%;
-  background: #fff;
+  background: transparent; /* Make section bar transparent */
   border-bottom: 1px solid #eee;
   margin-bottom: 0;
   padding: 0 0 4px 0;
