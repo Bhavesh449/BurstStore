@@ -104,7 +104,7 @@
   display: block;
   margin: 0 auto 10px auto;
   border-radius: 8px;
-  background: #fffafa;
+  background: #941010;
 }
 
 /* Optional: Product card styling for better appearance */
@@ -351,12 +351,20 @@ body.dark-mode .footer-social-link {
 /* Section bar and list styles */
 .section-bar {
   width: 100%;
-  background: transparent; /* Make section bar transparent */
+  background: rgba(255, 255, 255, 0); /* semi-transparent white */
+  backdrop-filter: blur(8px);            /* blur effect for modern look */
+  -webkit-backdrop-filter: blur(8px);    /* Safari support */
   border-bottom: 1px solid #eee;
   margin-bottom: 0;
   padding: 0 0 4px 0;
   position: static;
   z-index: 1001;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  margin: 18px auto 32px auto;
+  max-width: 900px;
+  padding: 8px 0;
+  transition: background 0.3s;
 }
 .section-list {
   display: flex;
@@ -426,4 +434,22 @@ body.dark-mode .footer-social-link {
     gap: 16px;
     padding: 8px 8px 0 8px;
   }
+}
+
+/* Section bar text color for light and dark mode */
+.section-bar,
+.section-bar .section-list .nav-link,
+.section-bar .section-list .nav-item,
+.section-bar .section-list .dropdown-menu,
+.section-bar .section-list .dropdown-menu li {
+  color: #111 !important; /* Black text in light mode */
+}
+
+/* Dark mode: section bar text white */
+body.dark-mode .section-bar,
+body.dark-mode .section-bar .section-list .nav-link,
+body.dark-mode .section-bar .section-list .nav-item,
+body.dark-mode .section-bar .section-list .dropdown-menu,
+body.dark-mode .section-bar .section-list .dropdown-menu li {
+  color: #fff !important; /* White text in dark mode */
 }

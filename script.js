@@ -236,3 +236,12 @@ function fillPokemonDropdown(menuId) {
 }
 fillPokemonDropdown('pokemon-dropdown-menu-desktop');
 fillPokemonDropdown('pokemon-dropdown-menu-mobile');
+
+// Open favourites modal if URL hash is #favourites
+if (window.location.hash === '#favourites') {
+  setTimeout(() => {
+    favouritesLink.click();
+    // Optionally, remove the hash so it doesn't reopen on refresh
+    history.replaceState(null, '', window.location.pathname);
+  }, 100);
+}

@@ -3,36 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <title>Pokemon Cards</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="header">
-    <a href="https://burststore.vercel.app/">
-      <img src="logo.png" alt="BurstStore Logo" class="logo" style="height:60px;">
-    </a>
+    <img src="logo.png" alt="BurstStore Logo" class="logo" style="height:60px;">
     <input type="text" class="search-box" placeholder="Search for products, brands and more">
     <nav class="navbar">
-      <button id="favourites-link" class="favourites-btn">Favourites ❤️</button>
+      <button id="favourites-link" class="favourites-btn" onclick="window.location.href='index.html#favourites'">Favourites ❤️</button>
       <button id="dark-mode-toggle" class="favourites-btn" style="margin-left:10px;">🌙 Dark Mode</button>
     </nav>
   </header>
 
-  <div style="text-align:center;margin-top:32px;">
-    <img src="pokemon.png" alt="Pokemon Cards" style="height:64px;">
-  </div>
-  <div class="product-grid" style="max-width:700px;margin:0 auto;">
-    <div class="product-card">
-      <a href="https://www.youtube.com/shorts/wilGNbTzUnc" target="_blank" style="display:block;">
-        <img class="product-thumb" src="paradox.png" alt="Pokemon Scarlet&Violet Paradox Rift">
-      </a>
-      <h3 style="margin: 12px 0 6px 0; font-size: 1.15rem;">Pokemon Scarlet&amp;Violet Paradox Rift</h3>
-      <p style="font-weight: bold; color: #222;">Rs 10/piece</p>
-      <button class="add-fav-btn" data-name="Pokemon Scarlet&Violet Paradox Rift" data-price="Rs 10" data-image="paradox.png" data-link="https://www.youtube.com/shorts/wilGNbTzUnc">
-        Add to Favourite ❤️
-      </button>
+  <!-- Optional: Section navigation bar for consistency -->
+  <nav class="section-bar">
+    <ul class="section-list">
+      <li class="nav-item dropdown" id="pokemon-dropdown-desktop">
+        <a href="pokemon-cards.html" class="nav-link">
+          <img src="pokemonsection.png" alt="Pokemon Cards" class="pokemon-icon">
+          <span>Pokemon Cards</span>
+        </a>
+        <ul class="dropdown-menu" id="pokemon-dropdown-menu-desktop">
+          <!-- JS can fill this if needed -->
+        </ul>
+      </li>
+      <!-- Add more <li> for other sections if needed -->
+    </ul>
+  </nav>
+
+  <main>
+    <div style="text-align:center;margin-top:32px;">
+      <img src="pokemon.png" alt="Pokemon Cards" style="height:64px;">
     </div>
-  </div>
+    <div class="product-grid" style="max-width:700px;margin:0 auto;">
+      <div class="product-card">
+        <a href="https://www.youtube.com/shorts/wilGNbTzUnc" target="_blank" style="display:block;">
+          <img class="product-thumb" src="paradox.png" alt="Pokemon Scarlet&Violet Paradox Rift">
+        </a>
+        <h3 style="margin: 12px 0 6px 0; font-size: 1.15rem;">Pokemon Scarlet&amp;Violet Paradox Rift</h3>
+        <p style="font-weight: bold; color: #222;">Rs 10/piece</p>
+        <button class="add-fav-btn" data-name="Pokemon Scarlet&Violet Paradox Rift" data-price="Rs 10" data-image="paradox.png" data-link="https://www.youtube.com/shorts/wilGNbTzUnc">
+          Add to Favourite ❤️
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer-dark">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Socials</h4>
+        <a href="https://www.youtube.com/@BoxBurstOfficial" target="_blank" class="footer-social-link">
+          <img src="yt.png" alt="YouTube" class="footer-social-icon">
+          <span>YouTube</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
   <script>
+    // Dark mode persistence
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      document.body.classList.add('dark-mode');
+    }
+    document.getElementById('dark-mode-toggle').addEventListener('click', function() {
+      document.body.classList.toggle('dark-mode');
+      if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        localStorage.setItem('darkMode', 'disabled');
+      }
+    });
+
     // Helper to get and set favourites in localStorage
     function getFavourites() {
       return JSON.parse(localStorage.getItem('favourites') || '[]');
@@ -66,16 +109,5 @@
       });
     });
   </script>
-  <footer class="footer-dark">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h4>Socials</h4>
-        <a href="https://www.youtube.com/@BoxBurstOfficial" target="_blank" class="footer-social-link">
-          <img src="yt.png" alt="YouTube" class="footer-social-icon">
-          <span>YouTube</span>
-        </a>
-      </div>
-    </div>
-  </footer>
 </body>
 </html>
