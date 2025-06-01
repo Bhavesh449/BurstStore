@@ -1,83 +1,4 @@
-const products = [
-  {
-    name: "Business Game",
-    price: "Rs 120",
-    description: "Original Business Game: The game of buying, selling, trading & mortgaging property.",
-    image: "business-game.jpg",
-    link: "https://www.youtube.com/shorts/oKTU8f6II_U"
-  },
-  {
-    name: "Doll",
-    price: "Rs 70",
-    description: "Beautiful Doll: Perfect for kids and as a gift.",
-    image: "doll.jpg",
-    link: "https://www.youtube.com/shorts/jzirhX2p6AU"
-  },
-  {
-    name: "Geometry box",
-    price: "Rs 110",
-    description: "Geometry box: Essential for students, includes all basic instruments.",
-    image: "box.png",
-    link: "https://www.youtube.com/shorts/ugqnvIJXrTk"
-  },
-  {
-    name: "Superhero",
-    price: "Rs 40",
-    description: "Superhero: Fun superhero toy for kids.",
-    image: "hero.png",
-    link: "https://www.youtube.com/shorts/v19zXvs_j1E"
-  },
-  {
-    name: "Spinner",
-    price: "Rs 120",
-    description: "Spinner: Fun and relaxing fidget spinner for all ages.",
-    image: "spinner.png",
-    link: "https://www.youtube.com/shorts/yTJEIKGgEaU"
-  },
-  {
-    name: "Scratchbook",
-    price: "Rs 30",
-    description: "Scratchbook: A fun and creative outlet for all ages.",
-    image: "scratch.png",
-    link: "https://www.youtube.com/shorts/-94Wf5xmfJg"
-  },
-  {
-    name: "Attractive Pens ",
-    price: "Rs 20",
-    description: "Attractive Pens: Colorful and stylish pens for writing and drawing.",
-    image: "pens.png",
-    link: "https://www.youtube.com/shorts/rK5LCrww92A"
-  },
-  {
-    name: "Pokemon Scarlet&Violet Paradox Rift",
-    price: "Rs 10",
-    description: "Pokemon Scarlet&Violet Paradox Rift",
-    image: "paradox.png",
-    link: "https://www.youtube.com/shorts/wilGNbTzUnc"
-  },
-  {
-    name: "Magic Spring",
-    price: "Rs 40",
-    realPrice: "Rs 30",
-    description: "Magic Spring: Classic fun toy for kids and adults.",
-    image: "spring.png",
-    link: "https://www.youtube.com/shorts/-ewHAp8JQIM"
-  },
-  {
-    name: "ShuttleCock",
-    price: "Rs 40",
-    description: "ShuttleCock: Great for badminton fun and exercise.",
-    image: "shutle.png",
-    link: "https://www.youtube.com/shorts/GqoBl5OQ0r8"
-  },
-  {
-    name: "Pokemon Sun&Moon Cosmic Eclipse",
-    price: "Rs 10/piece",
-    description: "Pokemon Sun&Moon Cosmic Eclipse",
-    image: "cosmic.png",
-    link: "https://www.youtube.com/shorts/cyQ94o-AbHg"
-  }
-];
+// const products = [...] // This array is now defined in index.html
 
 // Remove all products from pokemon cards section by clearing the array
 const pokemonProducts = [];
@@ -126,19 +47,17 @@ function showProducts(filteredProducts = products) {
     // Show strikethrough price and real price for Magic Spring
     let priceHtml = "";
     if (product.name === "Magic Spring" && product.realPrice) {
-      // Check if dark mode is enabled
-      const isDark = document.body.classList.contains('dark-mode');
-      priceHtml = `<span style="font-size:small;color:grey;text-decoration:line-through;">${product.price}</span> <span style="font-weight:bold;${isDark ? 'color:#fff;' : 'color:#222;'}">${product.realPrice}</span>`;
+      priceHtml = `<span style=\"font-size:small;color:grey;text-decoration:line-through;\">${product.price}</span> <span style=\"font-weight:bold;color:#222;\">${product.realPrice}</span>`;
     } else {
       priceHtml = `<span>${product.price}</span>`;
     }
 
     card.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" class="product-thumb">
-      <div class="product-info">
+      <img src=\"${product.image}\" alt=\"${product.name}\" class=\"product-thumb\">
+      <div class=\"product-info\">
         <h3>${product.name}</h3>
         <p>${priceHtml}</p>
-        <button class="fav-btn-card" ${isFavourite ? 'disabled' : ''}>
+        <button class=\"fav-btn-card\" ${isFavourite ? 'disabled' : ''}>
           ${isFavourite ? 'Already added' : 'Add to Favourite ❤️'}
         </button>
       </div>
@@ -165,7 +84,7 @@ function showProducts(filteredProducts = products) {
 }
 
 function showDetail(index) {
-  const product = products[index];
+  const product = products[index]; // Relies on global products array
   detailImage.src = product.image;
   detailName.textContent = product.name;
   detailPrice.textContent = product.price;
@@ -198,8 +117,8 @@ favouritesLink.addEventListener('click', () => {
 
       li.innerHTML = `
         <span>${item.name} - ${item.price}</span>
-        <button class="remove-fav-btn" data-index="${idx}" style="background:none;border:none;cursor:pointer;">
-          <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/icons/trash.svg" alt="Remove" width="20" height="20">
+        <button class=\"remove-fav-btn\" data-index=\"${idx}\" style=\"background:none;border:none;cursor:pointer;\">
+          <img src=\"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/icons/trash.svg\" alt=\"Remove\" width=\"20\" height=\"20\">
         </button>
       `;
       favouritesList.appendChild(li);
@@ -214,11 +133,11 @@ favouritesLink.addEventListener('click', () => {
         favouritesLink.click(); // Refresh the list
         showProducts(
           searchBox.value
-            ? products.filter(product =>
+            ? products.filter(product => // Relies on global products array
                 product.name.toLowerCase().includes(searchBox.value.trim().toLowerCase()) ||
                 product.description.toLowerCase().includes(searchBox.value.trim().toLowerCase())
               )
-            : products
+            : products // Relies on global products array
         );
       });
     });
@@ -233,30 +152,14 @@ closeFavBtn.addEventListener('click', () => {
 const searchBox = document.querySelector('.search-box');
 searchBox.addEventListener('input', function () {
   const query = this.value.trim().toLowerCase();
-  const filtered = products.filter(product =>
+  const filtered = products.filter(product => // Relies on global products array
     product.name.toLowerCase().includes(query) ||
     product.description.toLowerCase().includes(query)
   );
   showProducts(filtered);
 });
 
-// Dark mode toggle
-const darkModeBtn = document.getElementById('dark-mode-toggle');
-darkModeBtn.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-  darkModeBtn.textContent = document.body.classList.contains('dark-mode') ? "☀️ Light Mode" : "🌙 Dark Mode";
-  // Re-render products to update Magic Spring price color
-  showProducts(
-    searchBox.value
-      ? products.filter(product =>
-          product.name.toLowerCase().includes(searchBox.value.trim().toLowerCase()) ||
-          product.description.toLowerCase().includes(searchBox.value.trim().toLowerCase())
-        )
-      : products
-  );
-});
-
-showProducts();
+showProducts(); // Initial call to display products
 // Open favourites modal if URL hash is #favourites
 if (window.location.hash === '#favourites') {
   setTimeout(() => {
