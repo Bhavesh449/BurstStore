@@ -9,12 +9,11 @@
 <body>
   <header class="header">
     <a href="https://burststore.vercel.app/">
-      <img src="logo.png" alt="BurstStore Logo" class="logo" style="height:60px;">
+      <img src="burststore.png" alt="BurstStore Logo" class="logo" style="height:60px;">
     </a>
     <input type="text" class="search-box" placeholder="Search for products, brands and more">
     <nav class="navbar">
       <button id="favourites-link" class="favourites-btn" onclick="window.location.href='index.html#favourites'">Favourites ❤️</button>
-      <button id="dark-mode-toggle" class="favourites-btn" style="margin-left:10px;">🌙 Dark Mode</button>
     </nav>
   </header>
 
@@ -66,32 +65,6 @@
     </div>
     </footer>
       <script>
-    // Helper to update dark mode button text
-    function updateDarkModeButton() {
-      const btn = document.getElementById('dark-mode-toggle');
-      if (document.body.classList.contains('dark-mode')) {
-        btn.textContent = "☀️ Light Mode";
-      } else {
-        btn.textContent = "🌙 Dark Mode";
-      }
-    }
-
-    // On page load, set dark mode and button text
-    if (localStorage.getItem('darkMode') === 'enabled') {
-      document.body.classList.add('dark-mode');
-    }
-    document.addEventListener('DOMContentLoaded', updateDarkModeButton);
-
-    document.getElementById('dark-mode-toggle').addEventListener('click', function() {
-      document.body.classList.toggle('dark-mode');
-      if (document.body.classList.contains('dark-mode')) {
-        localStorage.setItem('darkMode', 'enabled');
-      } else {
-        localStorage.setItem('darkMode', 'disabled');
-      }
-      updateDarkModeButton();
-    });
-
     // Helper to get and set favourites in localStorage
     function getFavourites() {
       return JSON.parse(localStorage.getItem('favourites') || '[]');
