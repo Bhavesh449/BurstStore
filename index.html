@@ -67,7 +67,7 @@
     </div>
     </footer>
     <p>&copy; 2025 BurstStore. All rights reserved.</p>
-  
+
   <script>
 const products = [
   {
@@ -233,6 +233,140 @@ const products = [
     link: "https://www.youtube.com/shorts/siTLWm2RRyI"
   }
 ];
+
+// Helper to get and set favourites in localStorage
+function getFavourites() {
+  return JSON.parse(localStorage.getItem('favourites') || '[]');
+}
+
+function setFavourites(favs) {
+  localStorage.setItem('favourites', JSON.stringify(favs));
+}
+
+// Function to render product cards
+function renderProducts(productsToRender) {
+  const productListDiv = document.getElementById('product-list');
+  productListDiv.innerHTML = ''; // Clear existing products
+
+  const favs = getFavourites(); // Get current favorites
+
+  // Reverse the array to show newest items first
+  const reversedProducts = productsToRender.slice().reverse();
+
+  reversedProducts.forEach(product => {
+    const productCard = document.createElement('div');
+    productCard.classList.add('product-card');
+
+    const isFavourite = favs.some(fav => fav.name === product.name);
+
+    productCard.innerHTML = `
+      <img class="product-thumb" src="${product.image}" alt="${product.name}">
+      <h3>${product.name}</h3>
+      <p>${product.price}</p>
+      <button class="${isFavourite ? 'remove-fav-btn' : 'add-fav-btn'}"
+              data-name="${product.name}"
+              data-price="${product.price}"
+              data-image="${product.image}"
+              data-link="${product.link || ''}">
+        ${isFavourite ? 'Remove' : 'Add to Favourite ❤️'}
+      </button>
+    `;
+    productListDiv.appendChild(productCard);
+  });
+
+  // Add event listeners to the buttons after rendering
+  document.querySelectorAll('.add-fav-btn, .remove-fav-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const name = this.dataset.name;
+      let favs = getFavourites();
+
+      if (this.classList.contains('add-fav-btn')) {
+        // Add to favourites
+        if (!favs.some(f => f.name === name)) {
+          favs.push({
+            name: this.dataset.name,
+            price: this.dataset.price,
+            image: this.dataset.image,
+            link: this.dataset.link
+          });
+          setFavourites(favs);
+          this.textContent = "Remove";
+          this.classList.add('remove-fav-btn');
+          this.classList.remove('add-fav-btn');
+        }
+      } else if (this.classList.contains('remove-fav-btn')) {
+        // Remove from favourites
+        favs = favs.filter(f => f.name !== name);
+        setFavourites(favs);
+        this.textContent = "Add to Favourite ❤️";
+        this.classList.add('add-fav-btn');
+        this.classList.remove('remove-fav-btn');
+      }
+    });
+  });
+}
+
+// Initial render of all products
+renderProducts(products);
+
+// Search functionality (assuming you have an input with class 'search-box')
+const searchBox = document.querySelector('.search-box');
+searchBox.addEventListener('input', (e) => {
+  const searchTerm = e.target.value.toLowerCase();
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchTerm) ||
+    product.description.toLowerCase().includes(searchTerm)
+  );
+  renderProducts(filteredProducts); // Re-render with filtered products
+});
+
+// Favourites modal functionality (assuming you have elements with these IDs)
+const favouritesLink = document.getElementById('favourites-link');
+const favouritesModal = document.getElementById('favourites-modal');
+const favouritesList = document.getElementById('favourites-list');
+const closeFavBtn = document.getElementById('close-fav-btn');
+
+favouritesLink.addEventListener('click', () => {
+  renderFavourites();
+  favouritesModal.classList.remove('hidden');
+});
+
+closeFavBtn.addEventListener('click', () => {
+  favouritesModal.classList.add('hidden');
+});
+
+function renderFavourites() {
+  const favs = getFavourites();
+  favouritesList.innerHTML = ''; // Clear existing list
+
+  if (favs.length === 0) {
+    favouritesList.innerHTML = '<li>No favourites added yet.</li>';
+    return;
+  }
+
+  favs.forEach(fav => {
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `
+      <img src="${fav.image}" alt="${fav.name}" style="width: 50px; height: 50px; margin-right: 10px;">
+      ${fav.name} - ${fav.price}
+      <button class="remove-fav-btn" data-name="${fav.name}" style="margin-left: 10px;">Remove</button>
+    `;
+    favouritesList.appendChild(listItem);
+  });
+
+  // Add event listeners to remove buttons in the modal
+  favouritesList.querySelectorAll('.remove-fav-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const name = this.dataset.name;
+      let favs = getFavourites();
+      favs = favs.filter(f => f.name !== name);
+      setFavourites(favs);
+      renderFavourites(); // Re-render the favourites list
+      renderProducts(products); // Also re-render the main product list to update button states
+    });
+  });
+}
+
   </script>
   <script src="script.js"></script>
 </body>
