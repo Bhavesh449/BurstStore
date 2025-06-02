@@ -260,8 +260,10 @@ function renderProducts(productsToRender) {
     const isFavourite = favs.some(fav => fav.name === product.name);
 
     productCard.innerHTML = `
-      <img class="product-thumb" src="${product.image}" alt="${product.name}">
-      <h3>${product.name}</h3>
+      <a href="${product.link}" target="_blank" style="text-decoration: none; color: inherit;">
+        <img class="product-thumb" src="${product.image}" alt="${product.name}">
+        <h3>${product.name}</h3>
+      </a>
       <p>${product.price}</p>
       <button class="${isFavourite ? 'remove-fav-btn' : 'add-fav-btn'}"
               data-name="${product.name}"
