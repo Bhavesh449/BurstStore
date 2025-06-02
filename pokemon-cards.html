@@ -13,7 +13,7 @@
     </a>
     <input type="text" class="search-box" placeholder="Search for products, brands and more">
     <nav class="navbar">
-      <button id="favourites-link" class="favourites-btn" onclick="window.location.href='index.html#favourites'">Favourites ❤️</button>
+      <button id="favourites-link" class="favourites-btn">Favourites ❤️</button>
     </nav>
   </header>
 
@@ -105,6 +105,13 @@
     </div>
   </main>
 
+  <!-- Favourites modal -->
+  <div id="favourites-modal" class="modal hidden">
+    <h2>Your Favourites</h2>
+    <ul id="favourites-list"></ul>
+    <button id="close-fav-btn">Close</button>
+  </div>
+
   <footer class="footer-dark">
     <div class="footer-content">
       <div class="footer-section">
@@ -132,31 +139,101 @@
       localStorage.setItem('favourites', JSON.stringify(favs));
     }
 
-    // On page load, update button if already in favourites
+    // On page load, update button state and add event listeners
     document.querySelectorAll('.add-fav-btn').forEach(btn => {
       const name = btn.dataset.name;
       const favs = getFavourites();
       const already = favs.some(f => f.name === name);
+
       if (already) {
-        btn.textContent = "Already Added";
-        btn.disabled = true;
+        btn.textContent = "Remove";
+        btn.classList.add('remove-fav-btn'); // Add a class to style or identify remove buttons
+        btn.classList.remove('add-fav-btn'); // Remove add class
       }
+
       btn.addEventListener('click', function() {
-        const favs = getFavourites();
-        if (!favs.some(f => f.name === name)) {
-          favs.push({
-            name: btn.dataset.name,
-            price: btn.dataset.price,
-            image: btn.dataset.image,
-            link: btn.dataset.link
-          });
+        const name = this.dataset.name;
+        let favs = getFavourites();
+
+        if (this.classList.contains('add-fav-btn')) {
+          // Add to favourites
+          if (!favs.some(f => f.name === name)) {
+            favs.push({
+              name: this.dataset.name,
+              price: this.dataset.price,
+              image: this.dataset.image,
+              link: this.dataset.link
+            });
+            setFavourites(favs);
+            this.textContent = "Remove";
+            this.classList.add('remove-fav-btn');
+            this.classList.remove('add-fav-btn');
+          }
+        } else if (this.classList.contains('remove-fav-btn')) {
+          // Remove from favourites
+          favs = favs.filter(f => f.name !== name);
           setFavourites(favs);
-          btn.textContent = "Already Added";
-          btn.disabled = true;
+          this.textContent = "Add to Favourite ❤️";
+          this.classList.add('add-fav-btn');
+          this.classList.remove('remove-fav-btn');
         }
       });
     });
-    
+
+    // Favourites modal functionality
+    const favouritesLink = document.getElementById('favourites-link');
+    const favouritesModal = document.getElementById('favourites-modal');
+    const favouritesList = document.getElementById('favourites-list');
+    const closeFavBtn = document.getElementById('close-fav-btn');
+
+    favouritesLink.addEventListener('click', () => {
+      renderFavourites();
+      favouritesModal.classList.remove('hidden');
+    });
+
+    closeFavBtn.addEventListener('click', () => {
+      favouritesModal.classList.add('hidden');
+    });
+
+    function renderFavourites() {
+      const favs = getFavourites();
+      favouritesList.innerHTML = ''; // Clear existing list
+
+      if (favs.length === 0) {
+        favouritesList.innerHTML = '<li>No favourites added yet.</li>';
+        return;
+      }
+
+      favs.forEach(fav => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+          <img src="${fav.image}" alt="${fav.name}" style="width: 50px; height: 50px; margin-right: 10px;">
+          ${fav.name} - ${fav.price}
+          <button class="remove-fav-btn" data-name="${fav.name}" style="margin-left: 10px;">Remove</button>
+        `;
+        favouritesList.appendChild(listItem);
+      });
+
+      // Add event listeners to remove buttons in the modal
+      favouritesList.querySelectorAll('.remove-fav-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const name = this.dataset.name;
+          let favs = getFavourites();
+          favs = favs.filter(f => f.name !== name);
+          setFavourites(favs);
+          renderFavourites(); // Re-render the favourites list
+          // Update the state of buttons on the pokemon cards page
+          document.querySelectorAll('.add-fav-btn, .remove-fav-btn').forEach(productBtn => {
+            if (productBtn.dataset.name === name) {
+              productBtn.textContent = "Add to Favourite ❤️";
+              productBtn.classList.add('add-fav-btn');
+              productBtn.classList.remove('remove-fav-btn');
+            }
+          });
+        });
+      });
+    }
+
   </script>
   <p>&copy; 2025 BurstStore. All rights reserved.</p>
 </body>
