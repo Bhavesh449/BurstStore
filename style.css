@@ -31,7 +31,7 @@
   background: #f0f5ff;
   color: #212121;
   outline: none;
-  box-shadow: 0 1px 2px rgba(40,116,240,0.08);
+  box-shadow: 0 1px 2px rgba(178, 180, 182, 0.08);
   transition: box-shadow 0.2s;
   order: 2;
 }
@@ -126,7 +126,7 @@
   object-fit: cover;
   display: block;
   margin: 0 auto 10px auto;
-  border-radius: 8px;
+  border-radius: px;
   background: #941010;
 }
 
@@ -299,11 +299,7 @@ body.dark-mode .footer-social-link {
   width: 48px;
   height: 48px;
   object-fit: cover;
-  border-radius: 50%;
   display: block;
-  margin: 0 auto 4px auto;
-  background: #fff;
-  border: 2px solid #eee;
 }
 
 #pokemon-dropdown {
@@ -707,4 +703,24 @@ body.dark-mode .section-bar .section-list .dropdown-menu li {
 
 .dot.active {
   opacity: 1;
+}
+.section-bar {
+  padding: 16px 0; /* was 8px 0 */
+  margin: 24px auto 40px auto; /* slightly larger margin */
+  max-width: 1000px; /* slightly wider */
+}
+.section-list .nav-item {
+  min-width: 180px;       /* was 160px */
+  padding: 24px 0;         /* was 18px 0 */
+}
+
+.section-list .nav-link {
+  font-size: 1.5rem;       /* was 1.35rem */
+  padding: 16px 0;         /* was 12px 0 */
+}
+@media (max-width: 600px) {
+  .section-list {
+    gap: 20px;             /* was 16px */
+    padding: 12px 12px 0 12px;
+  }
 }
