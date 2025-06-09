@@ -14,9 +14,83 @@
       <button id="favourites-link" class="favourites-btn">Favourites ❤️</button>
     </nav>
   </header>
+<div class="banner-section">
+  <div class="carousel-wrapper">
+  <div class="carousel-track">
+    <!-- 1st Image (Surprise) -->
+    <img src="surprise.png" class="carousel-img mobile" />
+    <img src="surpriselaptop.jpeg" class="carousel-img desktop" />
+    
+    <!-- 2nd Image (YouTube) with link -->
+    <a href="https://www.youtube.com/@BoxBurstOfficial" target="_blank">
+      <img src="ytchanel.jpeg" class="carousel-img mobile" />
+    </a>
+    <a href="https://www.youtube.com/@BoxBurstOfficial" target="_blank">
+      <img src="ytchannellaptop.jpeg" class="carousel-img desktop" />
+    </a>
+  </div>
 
-  <!-- Section navigation bar -->
-<nav class="section-bar">
+  <div class="dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+  </div>
+</div>
+<script>
+  const carousel = document.getElementById("carousel");
+  const dots = document.querySelectorAll(".dot");
+  const slides = carousel.querySelectorAll("img");
+  let currentIndex = 0;chan
+  let isUserInteracting = false;
+
+  function scrollToSlide(index) {
+    const width = carousel.offsetWidth;
+    carousel.scrollTo({ left: index * width, behavior: "smooth" });
+
+    dots.forEach(dot => dot.classList.remove("active"));
+    dots[index % slides.length].classList.add("active");
+  }
+
+  function autoScroll() {
+    if (!isUserInteracting) {
+      currentIndex = (currentIndex + 1) % slides.length;
+      scrollToSlide(currentIndex);
+    }
+  }
+
+  // Auto-scroll every 4 seconds
+  let autoScrollInterval = setInterval(autoScroll, 2000);
+
+  // Pause on user interaction
+  carousel.addEventListener("touchstart", () => isUserInteracting = true);
+  carousel.addEventListener("touchend", () => {
+    isUserInteracting = false;
+    clearInterval(autoScrollInterval);
+    autoScrollInterval = setInterval(autoScroll, 4000);
+  });
+
+  // Sync dots on manual scroll
+  carousel.addEventListener("scroll", () => {
+    const index = Math.round(carousel.scrollLeft / carousel.offsetWidth);
+    currentIndex = index;
+    dots.forEach(dot => dot.classList.remove("active"));
+    if (dots[index % slides.length]) {
+      dots[index % slides.length].classList.add("active");
+    }
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.innerWidth > 768) {
+      document.querySelector('.banner-track').innerHTML = `
+        <img src="surpriselaptop.png" alt="Laptop Surprise" class="banner-image" />
+        <img src="ytchannellaptop.jpeg" alt="Laptop Ad" class="banner-image" />
+      `;
+    }
+  });
+</script>
+
+</div>
   <ul class="section-list">
     <!-- Example: Add more sections as needed -->
     <li class="nav-item dropdown" id="pokemon-dropdown-desktop">
@@ -62,7 +136,7 @@
         <a href="https://maps.app.goo.gl/xyNL6ao9BT7XMB8U7" target="_blank" class="footer-social-link">
           <img src="map.png" alt="Map" class="footer-social-icon">
           <span>Map</span>
-        </a>
+        </a>  
       </div>
     </div>
     </footer>
@@ -237,6 +311,20 @@ const products = [
     price: "Rs 120",
     description: "Digital Tab",
     image: "digitaltab.jpeg",
+    link: "https://www.youtube.com/shorts/lnWk_e8UZLU"
+  },
+  {
+    name: "Paper Soap",
+    price: "Rs 50",
+    description: "Paper Soap",
+    image: "soap.png",
+    link: "https://www.youtube.com/shorts/qcjpmHCLfIc"
+  },
+  {
+    name: "Magic Water Book",
+    price: "Rs 50",
+    description: "Magic Water Book",
+    image: "waterbook.png",
     link: "https://www.youtube.com/shorts/lnWk_e8UZLU"
   }
 ];
