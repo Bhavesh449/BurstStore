@@ -168,4 +168,3 @@ if (window.location.hash === '#favourites') {
     history.replaceState(null, '', window.location.pathname);
   }, 100);
 }
-
