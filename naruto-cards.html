@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Naruto Cards</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<!-- Favourites modal -->
+<div id="favourites-modal" class="modal hidden">
+  <h2>Your Favourites</h2>
+  <ul id="favourites-list"></ul>
+  <button id="close-fav-btn">Close</button>
+</div>
+
+<body>
+  <header class="header">
+  <a href="https://burststore.vercel.app/">
+    <img src="burststore.png" alt="BurstStore Logo" class="logo" style="height:60px;">
+  </a>
+  <input type="text" class="search-box" placeholder="Search for products, brands and more">
+  <nav class="navbar">
+</nav>
+
+</header>
+
+<!-- ✅ Naruto Logo at the Top -->
+<div style="text-align:center;margin:16px 0;">
+  <img src="naruto.png" alt="Naruto Cards" style="height:64px;">
+</div>
+
+<main>
+  <div id="naruto-products" class="product-grid"></div>
+
+    <div class="product-grid" style="max-width:700px;margin:0 auto;">
+  </main>
+
+  <!-- Favourites modal -->
+  <div id="favourites-modal" class="modal hidden">
+    <h2>Your Favourites</h2>
+    <ul id="favourites-list"></ul>
+    <button id="close-fav-btn">Close</button>
+  </div>
+
+  <footer class="footer-dark">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Socials</h4>
+        <a href="https://www.youtube.com/@BoxBurstOfficial" target="_blank" class="footer-social-link">
+          <img src="yt.png" alt="YouTube" class="footer-social-icon">
+          <span>YouTube</span>
+        </a>
+      </div>
+      <div class="footer-section">
+        <h4>Location</h4>
+        <a href="https://maps.app.goo.gl/xyNL6ao9BT7XMB8U7" target="_blank" class="footer-social-link">
+          <img src="map.png" alt="Map" class="footer-social-icon">
+          <span>Map</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+  <script>
+// Existing renderNarutoProducts function here...
+
+// 💙 Render favourites list
+function renderFavourites() {
+  const favs = getFavourites();
+  const favList = document.getElementById('favourites-list');
+  favList.innerHTML = '';
+
+  if (favs.length === 0) {
+    favList.innerHTML = '<li>No favourites yet!</li>';
+    return;
+  }
+
+  favs.forEach(fav => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <a href="${fav.link}" target="_blank" style="text-decoration:none;color:inherit;">
+        <img src="${fav.image}" alt="${fav.name}" style="height:40px;vertical-align:middle;margin-right:8px;">
+        ${fav.name} - ${fav.price}
+      </a>
+    `;
+    favList.appendChild(li);
+  });
+}
+
+// 💙 Handle favourites modal open/close
+document.getElementById('favourites-link').addEventListener('click', () => {
+  document.getElementById('favourites-modal').classList.remove('hidden');
+  renderFavourites();
+});
+
+document.getElementById('close-fav-btn').addEventListener('click', () => {
+  document.getElementById('favourites-modal').classList.add('hidden');
+});
+</script>
+
+
+  <script>
+// Shared favourites logic
+function getFavourites() {
+  return JSON.parse(localStorage.getItem('favourites') || '[]');
+}
+
+function setFavourites(favs) {
+  localStorage.setItem('favourites', JSON.stringify(favs));
+}
+
+function updateFavButtonState(button, isFavourite) {
+  if (isFavourite) {
+    button.textContent = "Remove";
+    button.classList.remove("add-fav-btn");
+    button.classList.add("remove-fav-btn");
+  } else {
+    button.textContent = "Add to Favourite ❤️";
+    button.classList.remove("remove-fav-btn");
+    button.classList.add("add-fav-btn");
+  }
+}
+
+function renderNarutoProducts() {
+  const narutoContainer = document.getElementById('naruto-products');
+
+  const favs = getFavourites();
+  const product = {
+    name: "Naruto Golden Cards",
+    price: "Rs 10/piece",
+    description: "Naruto Golden Cards",
+    image: "narutogold.png",
+    link: "https://www.youtube.com/shorts/SJirY22DIB0"
+  };
+
+  const isFavourite = favs.some(fav => fav.name === product.name);
+
+  const card = document.createElement('div');
+  card.classList.add('product-card');
+  card.innerHTML = `
+    <a href="${product.link}" target="_blank" style="text-decoration: none; color: inherit;">
+      <img class="product-thumb" src="${product.image}" alt="${product.name}">
+      <h3>${product.name}</h3>
+    </a>
+    <p>${product.price}</p>
+    <button class="${isFavourite ? 'remove-fav-btn' : 'add-fav-btn'}"
+            data-name="${product.name}"
+            data-price="${product.price}"
+            data-image="${product.image}"
+            data-link="${product.link}">
+      ${isFavourite ? 'Remove' : 'Add to Favourite ❤️'}
+    </button>
+  `;
+
+  narutoContainer.appendChild(card);
+
+  const favButton = card.querySelector('button');
+  favButton.addEventListener('click', function() {
+    let favs = getFavourites();
+    const name = this.dataset.name;
+
+    if (this.classList.contains('add-fav-btn')) {
+      if (!favs.some(f => f.name === name)) {
+        favs.push({
+          name: this.dataset.name,
+          price: this.dataset.price,
+          image: this.dataset.image,
+          link: this.dataset.link
+        });
+        setFavourites(favs);
+        updateFavButtonState(this, true);
+      }
+    } else if (this.classList.contains('remove-fav-btn')) {
+      favs = favs.filter(f => f.name !== name);
+      setFavourites(favs);
+      updateFavButtonState(this, false);
+    }
+  });
+}
+function renderFavourites() {
+  const favs = getFavourites();
+  const favList = document.getElementById('favourites-list');
+  favList.innerHTML = '';
+
+  if (favs.length === 0) {
+    favList.innerHTML = '<li>No favourites yet!</li>';
+    return;
+  }
+
+  favs.forEach((fav, index) => {
+    const li = document.createElement('li');
+    li.style.marginBottom = "12px";
+
+    li.innerHTML = `
+      <div style="display: flex; align-items: center; justify-content: space-between;">
+        <a href="${fav.link}" target="_blank" style="text-decoration:none; color:inherit; display:flex; align-items:center;">
+          <img src="${fav.image}" alt="${fav.name}" style="height:40px; margin-right:10px;">
+          <span>${fav.name} - ${fav.price}</span>
+        </a>
+        <button class="remove-fav-btn" data-name="${fav.name}" style="margin-left: 10px;">Remove</button>
+      </div>
+    `;
+
+    favList.appendChild(li);
+  });
+
+  // 🔄 Attach event listeners to each "Remove" button
+  const removeButtons = document.querySelectorAll('#favourites-list .remove-fav-btn');
+  removeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const name = button.dataset.name;
+      const updatedFavs = getFavourites().filter(f => f.name !== name);
+      setFavourites(updatedFavs);
+      renderFavourites(); // Refresh list after removal
+    });
+  });
+}
+
+window.addEventListener('DOMContentLoaded', renderNarutoProducts);
+
+</script>
+  <p>&copy; 2025 BurstStore. All rights reserved.</p>
+</body>
+<!-- Favourites modal -->
+<div id="favourites-modal" class="modal hidden">
+  <h2>Your Favourites</h2>
+  <ul id="favourites-list"></ul>
+  <button id="close-fav-btn">Close</button>
+</div>
+
+</html>
