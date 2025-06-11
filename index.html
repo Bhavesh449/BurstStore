@@ -2,104 +2,133 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Naruto Cards</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BurstStore</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<!-- Favourites modal -->
+<body>
+  <header class="header">
+    <img src="burststore.png" alt="BurstStore Logo" class="logo" style="height:60px;">
+    <input type="text" class="search-box" placeholder="Search for products, brands and more">
+    <nav class="navbar">
+  <button id="favourites-link" class="favourites-btn">Favourites ❤️</button>
+</nav>
+
+  </header>
+<div class="banner-section">
+  <div class="carousel-wrapper">
+  <div class="carousel-track">
+    <!-- 1st Image (Surprise) -->
+    <img src="surprise.png" class="carousel-img mobile" />
+    <img src="surpriselaptop.jpeg" class="carousel-img desktop" />
+    
+    <!-- 2nd Image (YouTube) with link -->
+    <a href="https://www.youtube.com/@BoxBurstOfficial" target="_blank">
+      <img src="ytchanel.jpeg" class="carousel-img mobile" />
+    </a>
+    <a href="https://www.youtube.com/@BoxBurstOfficial" target="_blank">
+      <img src="ytchannellaptop.jpeg" class="carousel-img desktop" />
+    </a>
+  </div>
+
+  <div class="dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+  </div>
+</div>
+<script>
+  const carousel = document.getElementById("carousel");
+  const dots = document.querySelectorAll(".dot");
+  const slides = carousel.querySelectorAll("img");
+  let currentIndex = 0;chan
+  let isUserInteracting = false;
+
+  function scrollToSlide(index) {
+    const width = carousel.offsetWidth;
+    carousel.scrollTo({ left: index * width, behavior: "smooth" });
+
+    dots.forEach(dot => dot.classList.remove("active"));
+    dots[index % slides.length].classList.add("active");
+  }
+
+  function autoScroll() {
+    if (!isUserInteracting) {
+      currentIndex = (currentIndex + 1) % slides.length;
+      scrollToSlide(currentIndex);
+    }
+  }
+
+  // Auto-scroll every 4 seconds
+  let autoScrollInterval = setInterval(autoScroll, 2000);
+
+  // Pause on user interaction
+  carousel.addEventListener("touchstart", () => isUserInteracting = true);
+  carousel.addEventListener("touchend", () => {
+    isUserInteracting = false;
+    clearInterval(autoScrollInterval);
+    autoScrollInterval = setInterval(autoScroll, 4000);
+  });
+
+  // Sync dots on manual scroll
+  carousel.addEventListener("scroll", () => {
+    const index = Math.round(carousel.scrollLeft / carousel.offsetWidth);
+    currentIndex = index;
+    dots.forEach(dot => dot.classList.remove("active"));
+    if (dots[index % slides.length]) {
+      dots[index % slides.length].classList.add("active");
+    }
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.innerWidth > 768) {
+      document.querySelector('.banner-track').innerHTML = `
+        <img src="surpriselaptop.png" alt="Laptop Surprise" class="banner-image" />
+        <img src="ytchannellaptop.jpeg" alt="Laptop Ad" class="banner-image" />
+      `;
+    }
+  });
+</script>
+
+</div>
+  <ul class="section-list">
+    <!-- Example: Add more sections as needed -->
+    <li class="nav-item dropdown" id="pokemon-dropdown-desktop">
+      <a href="pokemon-cards.html" class="nav-link">
+        <img src="pokemontcg.jpeg" alt="Pokemon Cards" class="pokemon-icon">
+        <span>Pokemon TCG</span>
+      </a>
+    </li>
+    <li class="nav-item dropdown" id="naruto-dropdown-desktop">
+      <a href="naruto-cards.html" class="nav-link">
+        <img src="narutotcg.jpeg" alt="Naruto TCG" class="pokemon-icon">
+        <span>Naruto TCG</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+  <main>
+    <div id="product-list" class="product-grid">
+      <!-- Product cards will be dynamically inserted here by script.js -->
+    </div>
+
+    <div id="product-detail" class="modal hidden">
+      <button id="close-btn">&times;</button>
+      <img id="detail-image" src="" alt="">
+      <h2 id="detail-name"></h2>
+      <p id="detail-price"></p>
+      <p id="detail-description"></p>
+    </div>
+   <!-- Favourites modal -->
 <div id="favourites-modal" class="modal hidden">
   <h2>Your Favourites</h2>
   <ul id="favourites-list"></ul>
   <button id="close-fav-btn">Close</button>
 </div>
 
-<body>
-  <header class="header">
-  <a href="https://burststore.vercel.app/">
-    <img src="burststore.png" alt="BurstStore Logo" class="logo" style="height:60px;">
-  </a>
-  <input type="text" class="search-box" placeholder="Search for products, brands and more">
-  <nav class="navbar">
-</nav>
-
-</header>
-
-<!-- ✅ Naruto Logo at the Top -->
-<div style="text-align:center;margin:16px 0;">
-  <img src="naruto.png" alt="Naruto Cards" style="height:64px;">
-</div>
-
-<main>
-  <div id="naruto-products" class="product-grid"></div>
-
-    <div class="product-grid" style="max-width:700px;margin:0 auto;">
-  </main>
-
-  <!-- Favourites modal -->
-  <div id="favourites-modal" class="modal hidden">
-    <h2>Your Favourites</h2>
-    <ul id="favourites-list"></ul>
-    <button id="close-fav-btn">Close</button>
-  </div>
-
-  <footer class="footer-dark">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h4>Socials</h4>
-        <a href="https://www.youtube.com/@BoxBurstOfficial" target="_blank" class="footer-social-link">
-          <img src="yt.png" alt="YouTube" class="footer-social-icon">
-          <span>YouTube</span>
-        </a>
-      </div>
-      <div class="footer-section">
-        <h4>Location</h4>
-        <a href="https://maps.app.goo.gl/xyNL6ao9BT7XMB8U7" target="_blank" class="footer-social-link">
-          <img src="map.png" alt="Map" class="footer-social-icon">
-          <span>Map</span>
-        </a>
-      </div>
-    </div>
-  </footer>
-  <script>
-// Existing renderNarutoProducts function here...
-
-// 💙 Render favourites list
-function renderFavourites() {
-  const favs = getFavourites();
-  const favList = document.getElementById('favourites-list');
-  favList.innerHTML = '';
-
-  if (favs.length === 0) {
-    favList.innerHTML = '<li>No favourites yet!</li>';
-    return;
-  }
-
-  favs.forEach(fav => {
-    const li = document.createElement('li');
-    li.innerHTML = `
-      <a href="${fav.link}" target="_blank" style="text-decoration:none;color:inherit;">
-        <img src="${fav.image}" alt="${fav.name}" style="height:40px;vertical-align:middle;margin-right:8px;">
-        ${fav.name} - ${fav.price}
-      </a>
-    `;
-    favList.appendChild(li);
-  });
-}
-
-// 💙 Handle favourites modal open/close
-document.getElementById('favourites-link').addEventListener('click', () => {
-  document.getElementById('favourites-modal').classList.remove('hidden');
-  renderFavourites();
-});
-
-document.getElementById('close-fav-btn').addEventListener('click', () => {
-  document.getElementById('favourites-modal').classList.add('hidden');
-});
-</script>
-
-
-  <script>
-// Shared favourites logic
+<script>
 function getFavourites() {
   return JSON.parse(localStorage.getItem('favourites') || '[]');
 }
@@ -173,58 +202,413 @@ function renderNarutoProducts() {
       favs = favs.filter(f => f.name !== name);
       setFavourites(favs);
       updateFavButtonState(this, false);
+      renderFavourites(); // Update modal if open
     }
   });
 }
+
 function renderFavourites() {
-  const favs = getFavourites();
   const favList = document.getElementById('favourites-list');
   favList.innerHTML = '';
+  const favs = getFavourites();
 
   if (favs.length === 0) {
     favList.innerHTML = '<li>No favourites yet!</li>';
     return;
   }
 
-  favs.forEach((fav, index) => {
+  favs.forEach(fav => {
     const li = document.createElement('li');
-    li.style.marginBottom = "12px";
-
     li.innerHTML = `
-      <div style="display: flex; align-items: center; justify-content: space-between;">
-        <a href="${fav.link}" target="_blank" style="text-decoration:none; color:inherit; display:flex; align-items:center;">
-          <img src="${fav.image}" alt="${fav.name}" style="height:40px; margin-right:10px;">
-          <span>${fav.name} - ${fav.price}</span>
-        </a>
-        <button class="remove-fav-btn" data-name="${fav.name}" style="margin-left: 10px;">Remove</button>
+      <div>
+        <a href="${fav.link}" target="_blank">${fav.name}</a> - ${fav.price}
+        <button class="remove-fav-btn" data-name="${fav.name}">Remove</button>
       </div>
     `;
-
     favList.appendChild(li);
   });
 
-  // 🔄 Attach event listeners to each "Remove" button
-  const removeButtons = document.querySelectorAll('#favourites-list .remove-fav-btn');
-  removeButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const name = button.dataset.name;
-      const updatedFavs = getFavourites().filter(f => f.name !== name);
-      setFavourites(updatedFavs);
-      renderFavourites(); // Refresh list after removal
+  // Add remove logic in modal
+  document.querySelectorAll('#favourites-list .remove-fav-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const name = this.dataset.name;
+      let favs = getFavourites();
+      favs = favs.filter(f => f.name !== name);
+      setFavourites(favs);
+      renderFavourites();
+      updateButtonsInProductGrid(); // Update product grid buttons too
     });
   });
 }
 
+function updateButtonsInProductGrid() {
+  const favs = getFavourites();
+  document.querySelectorAll('#naruto-products button').forEach(button => {
+    const name = button.dataset.name;
+    const isFav = favs.some(f => f.name === name);
+    updateFavButtonState(button, isFav);
+  });
+}
+
+// Modal open/close
+document.getElementById('favourites-link').addEventListener('click', () => {
+  document.getElementById('favourites-modal').classList.remove('hidden');
+  renderFavourites();
+});
+
+document.getElementById('close-fav-btn').addEventListener('click', () => {
+  document.getElementById('favourites-modal').classList.add('hidden');
+});
+
 window.addEventListener('DOMContentLoaded', renderNarutoProducts);
-
 </script>
-  <p>&copy; 2025 BurstStore. All rights reserved.</p>
-</body>
-<!-- Favourites modal -->
-<div id="favourites-modal" class="modal hidden">
-  <h2>Your Favourites</h2>
-  <ul id="favourites-list"></ul>
-  <button id="close-fav-btn">Close</button>
-</div>
 
+  </main>
+
+  <footer class="footer-dark">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Socials</h4>
+        <a href="https://www.youtube.com/@BoxBurstOfficial" target="_blank" class="footer-social-link">
+          <img src="yt.png" alt="YouTube" class="footer-social-icon">
+          <span>YouTube</span>
+        </a>
+      </div>
+      <div class="footer-section">
+        <h4>Location</h4>
+        <a href="https://maps.app.goo.gl/xyNL6ao9BT7XMB8U7" target="_blank" class="footer-social-link">
+          <img src="map.png" alt="Map" class="footer-social-icon">
+          <span>Map</span>
+        </a>  
+      </div>
+
+    </div>
+    </footer>
+    <p>&copy; 2025 BurstStore. All rights reserved.</p>
+
+  <script>
+const products = [
+  {
+    name: "Business Game",
+    price: "Rs 120",
+    description: "Original Business Game: The game of buying, selling, trading & mortgaging property.",
+    image: "business-game.jpg",
+    link: "https://www.youtube.com/shorts/oKTU8f6II_U"
+  },
+  {
+    name: "Doll",
+    price: "Rs 70",
+    description: "Beautiful Doll: Perfect for kids and as a gift.",
+    image: "doll.jpg",
+    link: "https://www.youtube.com/shorts/jzirhX2p6AU"
+  },
+  {
+    name: "Geometry box",
+    price: "Rs 110",
+    description: "Geometry box: Essential for students, includes all basic instruments.",
+    image: "box.png",
+    link: "https://www.youtube.com/shorts/ugqnvIJXrTk"
+  },
+  {
+    name: "Superhero",
+    price: "Rs 40",
+    description: "Superhero: Fun superhero toy for kids.",
+    image: "hero.png",
+    link: "https://www.youtube.com/shorts/v19zXvs_j1E"
+  },
+  {
+    name: "Spinner",
+    price: "Rs 120",
+    description: "Spinner: Fun and relaxing fidget spinner for all ages.",
+    image: "spinner.png",
+    link: "https://www.youtube.com/shorts/yTJEIKGgEaU"
+  },
+  {
+    name: "Scratchbook",
+    price: "Rs 30",
+    description: "Scratchbook: A fun and creative outlet for all ages.",
+    image: "scratch.png",
+    link: "https://www.youtube.com/shorts/-94Wf5xmfJg"
+  },
+  {
+    name: "Attractive Pens ",
+    price: "Rs 20",
+    description: "Attractive Pens: Colorful and stylish pens for writing and drawing.",
+    image: "pens.png",
+    link: "https://www.youtube.com/shorts/rK5LCrww92A"
+  },
+  {
+    name: "Pokemon Scarlet&Violet Paradox Rift",
+    price: "Rs 10", // Assuming price for index.html display, adjust if needed
+    description: "Pokemon Scarlet&Violet Paradox Rift",
+    image: "paradox.png",
+    link: "https://www.youtube.com/shorts/wilGNbTzUnc"
+  },
+  {
+    name: "Magic Spring",
+    price: "Rs 40",
+    realPrice: "Rs 30",
+    description: "Magic Spring: Classic fun toy for kids and adults.",
+    image: "spring.png",
+    link: "https://www.youtube.com/shorts/-ewHAp8JQIM"
+  },
+  {
+    name: "ShuttleCock",
+    price: "Rs 40",
+    description: "ShuttleCock: Great for badminton fun and exercise.",
+    image: "shutle.png",
+    link: "https://www.youtube.com/shorts/GqoBl5OQ0r8"
+  },
+  {
+    name: "Pokemon Sun&Moon Cosmic Eclipse",
+    price: "Rs 10/piece",
+    description: "Pokemon Sun&Moon Cosmic Eclipse",
+    image: "cosmic.png",
+    link: "https://www.youtube.com/shorts/cyQ94o-AbHg"
+  },
+  {
+    name: "Naruto Golden Cards",
+    price: "Rs 10/piece",
+    description: "Naruto Golden Cards",
+    image: "narutogold.png",
+    link: "https://www.youtube.com/shorts/SJirY22DIB0"
+  },
+  {
+    name: "Pokemon Crown Zenith",
+    price: "Rs 15/pkt",
+    description: "Pokemon Crown Zenith",
+    image: "pokemoncrown.png",
+    link: "https://www.youtube.com/shorts/4eImcmANFtQ"
+  },
+  {
+    name: "Star FootBaller Cards",
+    price: "Rs 15/pkt",
+    description: "Star FootBaller Cards",
+    image: "starcards.png",
+    link: "https://www.youtube.com/shorts/nQqhxxHrMXU"
+  },
+  {
+    name: "Pokemon Rainbow Card",
+    price: "Rs 10/piece",
+    description: "Pokemon Rainbow Card",
+    image: "pokemonrainbow.png",
+    link: "https://www.youtube.com/shorts/E5r6YpBbZVI"
+  },
+  {
+    name: "Pokemon Black Card",
+    price: "Rs 10/piece",
+    description: "Pokemon Black Card",
+    image: "pokemonblack.png",
+    link: "https://www.youtube.com/shorts/be-L28LM3ig"
+  },
+  {
+    name: "Pokemon Silver Card",
+    price: "Rs 10/piece",
+    description: "Pokemon Silver Card",
+    image: "pokemonsilver.png",
+    link: "https://www.youtube.com/shorts/dwi5Cb93qr0"
+  },
+  {
+    name: "Pokemon Golden Card",
+    price: "Rs 10/piece",
+    description: "Pokemon Golden Card",
+    image: "pokemongolden.png",
+    link: "https://www.youtube.com/shorts/uSovpPkfEso"
+  },
+  {
+    name: "Transparent Pouch",
+    price: "Rs 20/piece",
+    description: "Transparent Pouch",
+    image: "transparentpouch.png",
+    link: "https://www.youtube.com/shorts/oUQVThqNCSk"
+  },
+  {
+    name: "Captain America's Shield Spinner",
+    price: "Rs 120",
+    description: "Captain America Shield",
+    image: "capspinner.png",
+    link: "https://www.youtube.com/shorts/YrCCGPI9VA4"
+  },
+  {
+    name: "Mini off-roader Car",
+    price: "Rs 50",
+    description: "Mini off-roader Car",
+    image: "minicar.png",
+    link: "https://www.youtube.com/shorts/YNoW1r_8KvA"
+  },
+  {
+    name: "Fake IPhone",
+    price: "Rs 10",
+    description: "Fake IPhone",
+    image: "fakeiphone.png",
+    link: "https://www.youtube.com/shorts/Tm-m28T767s"
+  },
+  {
+    name: "Japanese Fan",
+    price: "Rs 20",
+    description: "Japanese Fan",
+    image: "japanfan.jpeg",
+    link: "https://www.youtube.com/shorts/siTLWm2RRyI"
+  },
+  {
+    name: "Digital Tab",
+    price: "Rs 120",
+    description: "Digital Tab",
+    image: "digitaltab.jpeg",
+    link: "https://www.youtube.com/shorts/lnWk_e8UZLU"
+  },
+  {
+    name: "Paper Soap",
+    price: "Rs 50",
+    description: "Paper Soap",
+    image: "soap.png",
+    link: "https://www.youtube.com/shorts/qcjpmHCLfIc"
+  },
+  {
+    name: "Magic Water Book",
+    price: "Rs 50",
+    description: "Magic Water Book",
+    image: "waterbook.png",
+    link: "https://www.youtube.com/shorts/T3d5yVNfjUE"
+  }
+];
+
+// Helper to get and set favourites in localStorage
+function getFavourites() {
+  return JSON.parse(localStorage.getItem('favourites') || '[]');
+}
+
+function setFavourites(favs) {
+  localStorage.setItem('favourites', JSON.stringify(favs));
+}
+
+// Function to render product cards
+function renderProducts(productsToRender) {
+  const productListDiv = document.getElementById('product-list');
+  productListDiv.innerHTML = ''; // Clear existing products
+
+  const favs = getFavourites(); // Get current favorites
+
+  // Reverse the array to show newest items first
+  const reversedProducts = productsToRender.slice().reverse();
+
+  reversedProducts.forEach(product => {
+    const productCard = document.createElement('div');
+    productCard.classList.add('product-card');
+
+    const isFavourite = favs.some(fav => fav.name === product.name);
+
+    productCard.innerHTML = `
+      <a href="${product.link}" target="_blank" style="text-decoration: none; color: inherit;">
+        <img class="product-thumb" src="${product.image}" alt="${product.name}">
+        <h3>${product.name}</h3>
+      </a>
+      <p>${product.price}</p>
+      <button class="${isFavourite ? 'remove-fav-btn' : 'add-fav-btn'}"
+              data-name="${product.name}"
+              data-price="${product.price}"
+              data-image="${product.image}"
+              data-link="${product.link || ''}">
+        ${isFavourite ? 'Remove' : 'Add to Favourite ❤️'}
+      </button>
+    `;
+    productListDiv.appendChild(productCard);
+  });
+
+  // Add event listeners to the buttons after rendering
+  document.querySelectorAll('.add-fav-btn, .remove-fav-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const name = this.dataset.name;
+      let favs = getFavourites();
+
+      if (this.classList.contains('add-fav-btn')) {
+        // Add to favourites
+        if (!favs.some(f => f.name === name)) {
+          favs.push({
+            name: this.dataset.name,
+            price: this.dataset.price,
+            image: this.dataset.image,
+            link: this.dataset.link
+          });
+          setFavourites(favs);
+          this.textContent = "Remove";
+          this.classList.add('remove-fav-btn');
+          this.classList.remove('add-fav-btn');
+        }
+      } else if (this.classList.contains('remove-fav-btn')) {
+        // Remove from favourites
+        favs = favs.filter(f => f.name !== name);
+        setFavourites(favs);
+        this.textContent = "Add to Favourite ❤️";
+        this.classList.add('add-fav-btn');
+        this.classList.remove('remove-fav-btn');
+      }
+    });
+  });
+}
+
+// Initial render of all products
+renderProducts(products);
+
+// Search functionality (assuming you have an input with class 'search-box')
+const searchBox = document.querySelector('.search-box');
+searchBox.addEventListener('input', (e) => {
+  const searchTerm = e.target.value.toLowerCase();
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchTerm) ||
+    product.description.toLowerCase().includes(searchTerm)
+  );
+  renderProducts(filteredProducts); // Re-render with filtered products
+});
+
+// Favourites modal functionality (assuming you have elements with these IDs)
+const favouritesLink = document.getElementById('favourites-link');
+const favouritesModal = document.getElementById('favourites-modal');
+const favouritesList = document.getElementById('favourites-list');
+const closeFavBtn = document.getElementById('close-fav-btn');
+
+favouritesLink.addEventListener('click', () => {
+  renderFavourites();
+  favouritesModal.classList.remove('hidden');
+});
+
+closeFavBtn.addEventListener('click', () => {
+  favouritesModal.classList.add('hidden');
+});
+
+function renderFavourites() {
+  const favs = getFavourites();
+  favouritesList.innerHTML = ''; // Clear existing list
+
+  if (favs.length === 0) {
+    favouritesList.innerHTML = '<li>No favourites added yet.</li>';
+    return;
+  }
+
+  favs.forEach(fav => {
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `
+      <img src="${fav.image}" alt="${fav.name}" style="width: 50px; height: 50px; margin-right: 10px;">
+      ${fav.name} - ${fav.price}
+      <button class="remove-fav-btn" data-name="${fav.name}" style="margin-left: 10px;">Remove</button>
+    `;
+    favouritesList.appendChild(listItem);
+  });
+
+  // Add event listeners to remove buttons in the modal
+  favouritesList.querySelectorAll('.remove-fav-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const name = this.dataset.name;
+      let favs = getFavourites();
+      favs = favs.filter(f => f.name !== name);
+      setFavourites(favs);
+      renderFavourites(); // Re-render the favourites list
+      renderProducts(products); // Also re-render the main product list to update button states
+    });
+  });
+}
+
+  </script>
+  <script src="script.js"></script>
+</body>
 </html>
