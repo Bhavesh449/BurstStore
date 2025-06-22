@@ -5,15 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BurstStore</title>
   <link rel="stylesheet" href="style.css">
+<!-- Firebase App (Core SDK) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+
 </head>
+
 <body>
+  
   <header class="header">
     <img src="burststore.png" alt="BurstStore Logo" class="logo" style="height:60px;">
     <input type="text" class="search-box" placeholder="Search for products, brands and more">
     <nav class="navbar">
   <button id="favourites-link" class="favourites-btn">Favourites ❤️</button>
 </nav>
+<!-- Hamburger Menu Button -->
+<div class="hamburger" id="hamburger">
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+</div>
 
+<!-- Hidden Navigation Menu -->
+<nav id="mobile-nav" class="mobile-nav hidden">
+  <a href="burststore.vercel.app">Home</a>
+  <a href="pokemon-cards.html">Pokemon TCG</a>
+  <a href="naruto-cards.html">Naruto TCG</a>
+</nav>
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+
+  hamburger.addEventListener('click', () => {
+    mobileNav.classList.toggle('hidden');
+  });
+</script>
   </header>
 <div class="banner-section">
   <div class="carousel-wrapper">
@@ -281,7 +307,9 @@ window.addEventListener('DOMContentLoaded', renderNarutoProducts);
           <span>Map</span>
         </a>  
       </div>
-
+        </a>
+         </a> 
+      </div>
     </div>
     </footer>
     <p>&copy; 2025 BurstStore. All rights reserved.</p>
@@ -491,6 +519,13 @@ const products = [
     description: "Magnifying Glass",
     image: "magnify.png",
     link: "https://www.youtube.com/shorts/kCz7Q-L1s58"
+  },
+  {
+    name: "HW Long Life Battery",
+    price: "₹ 25",
+    description: "HW long life",
+    image: "hwlong.png",
+    link: "https://www.youtube.com/shorts/JmNCx-ALcp4"
   }
 ];
 
@@ -628,8 +663,8 @@ function renderFavourites() {
     });
   });
 }
-
   </script>
   <script src="script.js"></script>
+</script>
 </body>
 </html>
