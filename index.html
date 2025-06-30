@@ -4,15 +4,9 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1789536920061423"
      crossorigin="anonymous"></script>
   <link rel="icon" type="image/png" href="bslogo.png">
-  <img src="bslogo.png" alt="Burst Store Logo" width="150" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Burst Store</title>
-<meta name="description" content="Shop unique items at Burst Store. Find Magic Water Books, Digital Tabs, Japanese Fans, and more!" />
-<meta name="keywords" content="Burst Store, Magic Water Book, Digital Tab, Japanese Fan, Online Store" />
-<meta property="og:title" content="Burst Store" />
-<meta property="og:description" content="Discover fun and affordable items at Burst Store." />
-<meta property="og:image" content="/bslogo.png" />
+  <title>BurstStore</title>
   <link rel="stylesheet" href="style.css">
 <!-- Firebase App (Core SDK) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
@@ -653,27 +647,4 @@ function renderFavourites() {
   favs.forEach(fav => {
     const listItem = document.createElement('li');
     listItem.innerHTML = `
-      <img src="${fav.image}" alt="${fav.name}" style="width: 50px; height: 50px; margin-right: 10px;">
-      ${fav.name} - ${fav.price}
-      <button class="remove-fav-btn" data-name="${fav.name}" style="margin-left: 10px;">Remove</button>
-    `;
-    favouritesList.appendChild(listItem);
-  });
-
-  // Add event listeners to remove buttons in the modal
-  favouritesList.querySelectorAll('.remove-fav-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      const name = this.dataset.name;
-      let favs = getFavourites();
-      favs = favs.filter(f => f.name !== name);
-      setFavourites(favs);
-      renderFavourites(); // Re-render the favourites list
-      renderProducts(products); // Also re-render the main product list to update button states
-    });
-  });
-}
-  </script>
-  <script src="script.js"></script>
-</script>
-</body>
-</html>
+      <i
