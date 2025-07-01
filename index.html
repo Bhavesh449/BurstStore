@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1789536920061423"
+   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1789536920061423"
      crossorigin="anonymous"></script>
   <link rel="icon" type="image/png" href="bslogo.png">
   <meta charset="UTF-8">
@@ -31,7 +31,7 @@
 
 <!-- Hidden Navigation Menu -->
 <nav id="mobile-nav" class="mobile-nav hidden">
-  <a href="index.html">Home</a>
+  <a href="burststore.vercel.app">Home</a>
   <a href="pokemon-cards.html">Pokemon TCG</a>
   <a href="naruto-cards.html">Naruto TCG</a>
 </nav>
@@ -529,6 +529,13 @@ const products = [
     description: "HW long life",
     image: "hwlong.png",
     link: "https://www.youtube.com/shorts/JmNCx-ALcp4"
+  },
+  {
+    name: "Transparent Pouches",
+    price: "₹ 20",
+    description: "pouches",
+    image: "pouch.png",
+    link: "https://www.youtube.com/shorts/51fWJtH6hoM"
   }
 ];
 
@@ -647,4 +654,27 @@ function renderFavourites() {
   favs.forEach(fav => {
     const listItem = document.createElement('li');
     listItem.innerHTML = `
-      <i
+      <img src="${fav.image}" alt="${fav.name}" style="width: 50px; height: 50px; margin-right: 10px;">
+      ${fav.name} - ${fav.price}
+      <button class="remove-fav-btn" data-name="${fav.name}" style="margin-left: 10px;">Remove</button>
+    `;
+    favouritesList.appendChild(listItem);
+  });
+
+  // Add event listeners to remove buttons in the modal
+  favouritesList.querySelectorAll('.remove-fav-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const name = this.dataset.name;
+      let favs = getFavourites();
+      favs = favs.filter(f => f.name !== name);
+      setFavourites(favs);
+      renderFavourites(); // Re-render the favourites list
+      renderProducts(products); // Also re-render the main product list to update button states
+    });
+  });
+}
+  </script>
+  <script src="script.js"></script>
+</script>
+</body>
+</html>
